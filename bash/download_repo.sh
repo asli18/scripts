@@ -26,7 +26,7 @@ main() {
     local clone_depth=0
     local lite=0
 
-    arg_parser ${@}
+    arg_parser "${@}"
 
     # clone repo_folder \
     #       branch \
@@ -71,7 +71,7 @@ arg_parser() {
 }
 
 is_int() {
-    if [[ ${1} =~ ^[0-9]+$ ]]; then
+    if [[ "${1}" =~ ^[0-9]+$ ]]; then
         return 0  # Return 0 to indicate it is an integer
     else
         return 1  # Return 1 to indicate it is not an integer
@@ -79,9 +79,9 @@ is_int() {
 }
 
 clone() {
-    local repo_folder=$1
-    local branch=$2
-    local url=$3
+    local repo_folder="$1"
+    local branch="$2"
+    local url="$3"
 
     local LYELLOW='\e[93m'
     local LGREEN='\e[92m'
@@ -91,7 +91,7 @@ clone() {
     echo -e "Clone repo: ${LGREEN}${repo_folder}${NC}"
     echo -e "Branch:     ${LYELLOW}${branch}${NC}"
 
-    if ! [ -d ${repo_folder} ]; then
+    if ! [ -d "${repo_folder}" ]; then
         local cmd="git clone"
         cmd+=" -b ${branch}"
 
@@ -110,7 +110,7 @@ clone() {
         # git clone --depth ${clone_depth} -b ${branch} --single-branch ${url} ${repo_folder}
         ${cmd}
 
-    elif [ ${update} -eq 1 ]; then
+    elif [ "${update}" -eq 1 ]; then
         cd ${repo_folder}
         echo -e "Updating..."
         git pull
@@ -120,6 +120,6 @@ clone() {
     fi
 }
 
-main ${@}
+main "${@}"
 
 
