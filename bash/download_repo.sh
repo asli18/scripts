@@ -17,27 +17,18 @@ usage() {
     echo -e "  ./download_repo.sh --depth=1 --lite --update"
 }
 
-main() {
-    script_dir="$(cd -- "$(dirname -- "$0")" >/dev/null 2>&1 ; pwd -P)"
-    cd ${script_dir}
-
-    # Arguments
-    local update=0
-    local clone_depth=0
-    local lite=0
-
-    arg_parser "${@}"
-
-    # clone repo_folder \
-    #       branch \
-    #       url
-
-    clone sample_code \
-          master \
-          git@github.com:asli18/sample_code.git
+is_int() {
+    if [[ "${1}" =~ ^[0-9]+$ ]]; then
+        return 0  # Return 0 to indicate it is a positive integer or zero
+    else
+        return 1  # Return 1 to indicate it is not a positive integer or zero
+    fi
 }
 
 arg_parser() {
+    local PARAM
+    local VALUE
+
     while [ "${1}" != "" ]; do
         PARAM=`echo ${1} | awk -F= '{print $1}'`
         VALUE=`echo ${1} | awk -F= '{print $2}'`
@@ -68,14 +59,6 @@ arg_parser() {
         esac
         shift
     done
-}
-
-is_int() {
-    if [[ "${1}" =~ ^[0-9]+$ ]]; then
-        return 0  # Return 0 to indicate it is an integer
-    else
-        return 1  # Return 1 to indicate it is not an integer
-    fi
 }
 
 clone() {
@@ -118,6 +101,26 @@ clone() {
     else
         echo -e "Directory already exists."
     fi
+}
+
+main() {
+    local script_dir="$(cd -- "$(dirname -- "$0")" >/dev/null 2>&1 ; pwd -P)"
+    cd ${script_dir}
+
+    # Arguments
+    local update=0
+    local clone_depth=0
+    local lite=0
+
+    arg_parser "${@}"
+
+    # clone repo_folder \
+    #       branch \
+    #       url
+
+    clone sample_code \
+          master \
+          git@github.com:asli18/sample_code.git
 }
 
 main "${@}"
