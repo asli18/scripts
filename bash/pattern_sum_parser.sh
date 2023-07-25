@@ -7,7 +7,7 @@ check_input() {
     fi
 
     if [[ ! "$2" =~ ^[0-9]+$ ]]; then
-        echo "Error: Field number is not a positive integer"
+        echo "Error: Field number is not a positive integer or zero"
         exit 1
     fi
 
@@ -28,15 +28,13 @@ parse_and_sum() {
 
     if [ -d "${target}" ]; then
         # The path is a valid directory
-        local file_ext="-name '*.log' -o -name '*.txt'"  # valid file extension
-        local find_cmd="find "${target}" -maxdepth 1 -type f \( ${file_ext} \) -print -quit"
+        local file_ext=( -name '*.log' -o -name '*.txt' )  # valid file extensions as an array
 
-        if [ -n "${find_cmd}" ]; then
-            for f in *.log *.txt; do
-                value=$(calculate_sum "${pattern}" "${field_num}" "${f}")
-                echo "${f}:${pattern} ${value}"
-            done
-        fi
+        find "${target}" -maxdepth 1 -type f \( "${file_ext[@]}" \) -print0 \
+        | while IFS= read -r -d '' f; do
+            value=$(calculate_sum "${pattern}" "${field_num}" "${f}")
+            echo "${f}:${pattern} ${value}"
+        done
 
     elif [ -f "${target}" ]; then
         # The path is a valid file

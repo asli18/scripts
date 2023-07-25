@@ -48,18 +48,18 @@ Parses log and text files, calculates the sum of values that match a specified p
 
 ### Usage
 
-To use the `parser.sh` script, execute it with the following format:
+To use the `pattern_sum_parser.sh` script, execute it with the following format:
 
 ```bash
-./parser.sh <pattern> <field_number> <target>
+./pattern_sum_parser.sh <pattern> <field_number> <target>
     # <pattern>:      The pattern to match in the file.
     # <field_number>: The field number whose values will be summed (a positive integer).
     # <target>:       The target directory or file path.
 
 # Parse a single file and calculate the sum of matched values:
-./parser.sh "pattern" 3 /path/to/file.log
+./pattern_sum_parser.sh "pattern" 3 /path/to/file.log
 # Parse all log and text files in a directory and calculate the sum of matched values:
-./parser.sh "pattern" 2 /path/to/directory
+./pattern_sum_parser.sh "pattern" 2 /path/to/directory
 ```
 
 ---
