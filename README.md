@@ -1,10 +1,15 @@
 # Automation and String Processing Scripts
 
 This repository contains a collection of scripts showcasing automation and string processing techniques using various scripting languages.
+- [Bash Scripts](#bash-scripts "Bash Scripts link")
+- [Perl](#perl "Perl link")
+- [Python](python/python.md "Python link")
+
+---
 
 ## Bash scripts
 
-- Demonstrates best practices for defining and using functions in Bash scripts.
+- Demonstrates some practices for defining and using functions in Bash scripts.
     - [Download Git Repository](#download-git-repository)
     - [File Matching and Execution](#file-matching-and-execution)
     - [Log and Text File Parser](#log-and-text-file-parser)
